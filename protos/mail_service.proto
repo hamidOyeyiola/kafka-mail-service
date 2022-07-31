@@ -1,0 +1,31 @@
+syntax = "proto3";
+package mailbox;
+option go_package="./mail_service;mailbox";
+
+
+message UserID{
+    string id = 1;
+}
+
+message Mail{
+    string sender = 1;
+    string recipient = 2;
+    string body = 3;
+    string subject = 4;
+    string  id = 5;
+}
+
+message Request{
+    UserID user = 1;
+    Mail email = 2;
+    string routine = 3; 
+}
+
+message Response{
+    repeated Mail mails = 1;
+}
+
+service MailService{
+    rpc Register(UserID) returns (Response);
+    rpc PostRequest(Request) returns (Response);
+}
